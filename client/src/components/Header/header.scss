@@ -1,0 +1,95 @@
+@import "../../responsive.scss";
+.header{
+    display: flex;
+    height: 100%;
+
+    .textContainer{
+        flex:3;
+        display: flex;
+        flex-direction: column;
+        @include md{
+            margin-top:1rem ;
+                    
+        }
+        @include lg{
+            margin-top:1rem ;
+                    
+        }
+
+        .wrapper{
+            padding-right: 100px;
+            display: flex;
+            margin-top: -4rem;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            gap:40px;
+            @include md{
+                padding: 0;
+
+            }
+            @include sm{
+                justify-content: flex-start;
+            }
+            .title{
+                margin-top: 50px;
+                font-size: 60px;
+                margin-top: 5rem;
+
+                @include lg{
+                    font-size: 48px;
+                }
+               
+            }
+            .desc{
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .boxes{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                @include sm{
+                    display: none;
+                }
+            }
+            h1{
+                font-size: 36px;
+                @include lg{
+                    font-size: 32px;
+                }
+            }
+            .number{
+                color:black;
+            }
+            span{
+                font-size: 20px;
+                color:black;
+                font-weight: 400;
+            }
+        }
+       
+    }
+
+    .imgContainer{
+        flex:2;
+        background-color: #fcf5f3; 
+        position: relative;
+        height: 100%;
+
+        
+        @include md{
+            display: none;
+        }
+
+        img{
+            width: 115%;
+            position: absolute;
+            right: 0;
+        }
+        @include lg{
+            width: 105%;
+        }
+    }
+}

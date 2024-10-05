@@ -1,0 +1,71 @@
+@import "../../responsive.scss";
+.guideContainer {
+    margin-top: 1rem;
+    padding: 5rem;
+
+    
+    .title-container {
+      display: flex;
+      align-items: center;
+      gap: 10px; 
+      margin-bottom: 20px; 
+
+      .underline {
+          width: 30px;
+          height: 4px;
+          background-color: #333;
+      }
+  }
+
+ 
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-size: 28px;
+      margin-bottom: 0; 
+      color:#666;
+      
+      @include sm{
+        margin-top: 2rem;
+        font-size: 26px;
+      }
+    }
+    .slick-slide {
+      padding: 0 10px; 
+    }
+    .guide {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      .property {
+        img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+        }
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
+        p {
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          color: #666;
+        }
+        button {
+          padding: 0.5rem 1rem;
+          border: none;
+          background-color: #000;
+          color: #fff;
+          cursor: pointer;
+          border-radius: 15px;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background-color: #333;
+          }
+        }
+      }
+    }
+  }
+  

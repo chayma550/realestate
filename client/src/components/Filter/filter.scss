@@ -1,0 +1,54 @@
+.filter{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+h1{
+    font-weight: 500;
+    font-size: 25px;
+    color: rgb(97, 97, 97);
+}
+
+    .item{
+    display: flex;
+    flex-direction: column;
+    gap:2px;
+   
+    label{
+        font-size: 12px;
+        font-weight: 400;
+    }
+    input,select{
+        width: 100px;
+        border: 1px solid #999;
+        height: 30px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    }
+ 
+     .top{
+        input{
+            width: 100%;
+            height: 40px;
+        }
+     }
+    .bottom{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        button{
+            background-color: #fece51;;
+           flex: 1;
+           padding: 15px 40px ;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 60px;
+        }
+    }
+
+}

@@ -1,0 +1,96 @@
+@import "../../responsive.scss";
+.card{
+    display: flex;
+    gap:20px;
+    @include sm{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imgContainer{
+        flex:2;
+        height: 200px;
+
+        
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
+
+    .textContainer{
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        gap:30px;
+      
+        .title{
+            font-size: 20px;
+            font-weight: 600;
+            color:#444;
+            transition: all 0.4 ease;
+
+            &:hover{
+                color:#000;
+                scale: 1.01;
+            }
+
+        }
+        .address{
+            display: flex;
+            gap:5px;
+
+
+            .location{
+                color: #444;
+            }
+
+        
+        }
+        
+        .price{
+            font-size: 24px;
+            background-color: #fece51;
+            max-width: max-content;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+        .bottom{
+            display: flex;
+            gap:40px;
+            align-items: center;
+
+            .feature{
+                display: flex;
+                gap:5px;
+                background-color:whitesmoke;
+                padding: 5px;
+                cursor: pointer;
+            }
+            .icons{
+                display:flex;
+                cursor: pointer;
+                margin-left: 3rem;
+                gap:20px;
+                cursor: pointer;
+              
+                .icon{
+                    font-size: 20px;
+                    background-color: whitesmoke;
+                    border: 1px solid gray;
+                    padding: 5px 7px;
+                    border-radius: 2px;
+
+                    &:hover{
+                        background-color: lightgray;
+                    }
+                }
+               
+            }
+        }
+    }
+}

@@ -1,0 +1,87 @@
+@import "../../responsive.scss";
+.footer{
+  margin-top: 3rem;
+    padding: 20px 0px;
+    text-align: center;
+    background-color: #f2f1f199;
+    @include sm{
+      
+    }
+    
+    .footer-content{
+        display: flex;
+        justify-content: space-around;
+        padding: 20px;
+        color:black;
+        position: relative;
+        align-items: center;
+        @include sm{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          gap:10px;
+        }
+        
+        img{
+            position: absolute;
+            width: 90px;
+            object-fit: cover;
+            left: 0;
+            top:0;
+
+            @include sm{
+              display: none;
+            }
+         
+            
+        }
+      
+        .footer-section{
+         
+            max-width: 200px;
+            h4{
+          margin-bottom: 10px;
+          font-size: 18px;
+          color: black;
+
+          @include sm{
+            text-align: center;
+          }
+            }
+            p {
+                margin: 0;
+                font-size: 14px;
+                color: #3e3e3e99;
+                font-weight: 600;
+              }
+
+              .social-icons{
+                display: flex;
+                justify-content: center;
+        
+                .social-icon {
+                  margin: 0 5px;
+                  color:black;
+                  font-size: 20px;
+                  text-decoration: none;
+                  transition: all 0.5s ease;
+                  cursor: pointer;
+
+                  &:hover{
+                      transform: scale(1.05);
+                  }
+                }
+      
+              }
+        
+      
+        }
+        .footer-bottom{
+            padding: 10px 0;
+            font-size: 14px;
+            color: black;
+      
+        }
+    }
+}

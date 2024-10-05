@@ -1,0 +1,142 @@
+@import "../../responsive.scss";
+.about{
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    gap:70px;
+
+
+    height: 100%;
+    @include sm{
+        flex-direction: column;
+       
+    }
+    @include md{
+        flex-direction: column;
+       
+    }
+
+    .imageContent{
+        flex: 2;
+        margin-right: 20px;
+        position: relative;
+         
+        @include sm{
+            margin-top: 1rem;
+           
+           
+        }
+        @include md{
+            margin-top:-7rem;
+           
+           
+        }
+            img{
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+
+            @include md{
+                width: 500px;
+                display: block;
+            }
+
+            }
+            &::after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                background-color:#fece51;
+                position: absolute;
+                top: 20px;
+                left: -20px;
+                z-index: -1;
+              }
+  
+
+        
+    }
+    .textContent{
+        flex: 3;
+        max-width: 500px;
+        @include sm{
+            display: flex;
+            flex-direction: column;
+            margin-top: -1rem;
+           
+           
+           
+        }
+       
+        h1 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+
+            @include md{
+                
+            }
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #555;
+            width: 70%;
+            line-height:20px;
+            text-align: justify;
+            @include md{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                
+               
+               
+               
+            }
+
+          
+        }
+         .buttons{
+            display: flex;
+            align-items: center;
+            gap:70px;
+
+        .btn-icon{
+            margin-left: 2rem;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            border-radius: 5rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color:black;
+            transition: 0.2s;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+        }
+        .learn-more-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: black;
+            background-color: #fece51;;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            
+           
+
+            &:hover {
+                background-color: #5555;
+            }
+        }
+    }
+    }
+}
