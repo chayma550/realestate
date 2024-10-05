@@ -9,18 +9,22 @@ export const SocketContextProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
     
     useEffect(() => {
-        const newSocket = io("http://localhost:4000"||"https://realestate-1-gnii.onrender.com");
+        // Define socket URL based on environment
+        const socketURL = process.env.REACT_APP_SOCKET_URL || "http://localhost:4000";
+        const newSocket = io(socketURL);
         setSocket(newSocket);
 
         // Cleanup function to disconnect the socket when the component unmounts
-        return () => newSocket.disconnect();
+        return () => {
+            newSocket.disconnect();
+        };
     }, []);
 
     useEffect(() => {
         if (currentUser && socket) {
             socket.emit("new user", currentUser.id);
         }
-    }, [currentUser, socket]); // Updated dependency array
+    }, [currentUser, socket]);
 
     return (
         <SocketContext.Provider value={{ socket }}>
