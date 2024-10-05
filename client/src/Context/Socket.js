@@ -9,7 +9,7 @@ export const SocketContextProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
     
     useEffect(() => {
-        const newSocket = io("http://localhost:4000");
+        const newSocket = io("http://localhost:4000"||"https://realestate-1-gnii.onrender.com");
         setSocket(newSocket);
 
         // Cleanup function to disconnect the socket when the component unmounts
