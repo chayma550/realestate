@@ -1,4 +1,4 @@
-import prisma from "../lib/prisma.js"; // Import your Prisma instance
+import prisma from "../lib/prisma.js"; 
 import CryptoJS from "crypto-js";
 import Jwt from "jsonwebtoken";
 
@@ -19,7 +19,7 @@ export const register = async (req, res, next) => {
 
     const accessToken = Jwt.sign(
       { id: newUser.id }, // Use newUser's id
-      process.env.JWT_SEC,
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "3d" }
     );
 
@@ -37,11 +37,11 @@ export const register = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     const user = await prisma.user.findUnique({
-      where: { username },
+      where: { email },
     });
 
     if (!user) return next(createError(404, "User not found!"));
@@ -55,7 +55,7 @@ export const login = async (req, res, next) => {
 
     const accessToken = Jwt.sign(
       { id: user.id, isAdmin: user.isAdmin }, // Assuming you have an isAdmin field
-      process.env.JWT_SEC,
+      process.env.JWT_SECRET_KEY,
       { expiresIn: "3d" }
     );
 
