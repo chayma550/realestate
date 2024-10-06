@@ -18,11 +18,7 @@ const Chat = ({ chats }) => {
 
   const handleOpenChat = async (id, receiver) => {
     try {
-      const res = await apiRequest("/chats/" + id, {
-        headers: {
-          Authorization: `Bearer ${currentUser.accessToken}` 
-        }
-      });
+      const res = await apiRequest("/chats/" + id, );
       if (res.data.seenBy.includes(currentUser.id)) {
         decrease();
       }

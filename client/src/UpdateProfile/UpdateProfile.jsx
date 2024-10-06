@@ -23,10 +23,7 @@ const handleSubmit=async(e)=>{
             email,
             password,
             avatar:avatar[0]
-        },{
-          headers: {
-            Authorization: `Bearer ${currentUser.accessToken}` 
-          }});
+        },);
       updateUser(res.data)
       navigate("/profile")
     }catch(err){
