@@ -30,9 +30,10 @@ export const getUser=async(req,res,next)=>{
 }
 
 
+
 export const updateUser = async (req, res, next) => {
   const id = req.params.id;
-  const tokenUserId = req.userId;  // Make sure req.userId is set via your verifyToken middleware
+  const tokenUserId = req.userId; // Ensure req.userId is set via your verifyToken middleware
   const { password, avatar, ...inputs } = req.body;
 
   // Check if the user is authorized to update this profile
@@ -40,32 +41,29 @@ export const updateUser = async (req, res, next) => {
     return res.status(401).json({ message: "Not authorized!" });
   }
 
-  let updatePassword = null;
-
   try {
-    // Hash new password if provided
+    // Hash the new password if provided
     if (password) {
-      updatePassword = await bcrypt.hash(password, 10);
+      inputs.password = await bcrypt.hash(password, 10);
     }
 
-    // Perform the update operation with conditional data updates
+    // Perform the update operation with Prisma
     const updatedUser = await prisma.user.update({
       where: { id },
       data: {
         ...inputs,
-        ...(updatePassword && { password: updatePassword }), // Update password only if provided
-        ...(avatar && { avatar }) // Update avatar only if provided
-      }
+        ...(avatar && { avatar }), // Update avatar only if provided
+      },
     });
 
     // Return the updated user data
     res.status(200).json(updatedUser);
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to update the user." });
   }
 };
+
 
 export const deleteUser=async(req,res,next)=>{
     try{
