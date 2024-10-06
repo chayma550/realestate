@@ -31,50 +31,49 @@ export const getUser=async(req,res,next)=>{
 
 
 
+// Update user
 export const updateUser = async (req, res, next) => {
-  const id = req.params.id;
-  const tokenUserId = req.userId; // Ensure req.userId is set via your verifyToken middleware
-  const { password, avatar, ...inputs } = req.body;
+  const { id } = req.params;
 
-  // Check if the user is authorized to update this profile
-  if (id.toString() !== tokenUserId.toString()) {
-    return res.status(401).json({ message: "Not authorized!" });
+  if (req.body.password) {
+    try {
+      const encryptedPassword = CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.PASS_SEC
+      ).toString();
+      req.body.password = encryptedPassword;
+    } catch (err) {
+      return res.status(500).json(err);
+    }
   }
 
   try {
-    // Hash the new password if provided
-    if (password) {
-      inputs.password = await bcrypt.hash(password, 10);
-    }
-
-    // Perform the update operation with Prisma
     const updatedUser = await prisma.user.update({
-      where: { id },
-      data: {
-        ...inputs,
-        ...(avatar && { avatar }), // Update avatar only if provided
-      },
+      where: { id: id },
+      data: req.body,
     });
-
-    // Return the updated user data
     res.status(200).json(updatedUser);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to update the user." });
+    next(err);
+  }
+};
+
+// Delete user
+export const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  
+  try {
+    await prisma.user.delete({
+      where: { id: id },
+    });
+    res.status(200).json("Account deleted!");
+  } catch (err) {
+    next(err);
   }
 };
 
 
-export const deleteUser=async(req,res,next)=>{
-    try{
-        const deleteUser=await prisma.user.delete({where:{id:req.params.id}})
-        res.status(200).json({message:"delete with success!!"})
-   
-    }catch(err){
-        console.log(err)
-        res.status(500).json({message:"failed to delete"})
-    } 
-}
+
 export const savePost=async(req,res,next)=>{
     const tokenUserId=req.userId;
     const postId=req.body.postId
