@@ -25,41 +25,47 @@ export const getUser=async(req,res,next)=>{
 
     }catch(err){
         console.log(err)
-        res.status(500).json({message:"failed to update"})
+        res.status(500).json({message:"failed to get user"})
     }  
 }
 
 
-export const updateUser=async(req,res,next)=>{
-    const id=req.params.id;
-    const tokenUserId=req.userId;
-    const{password,avatar,...inputs}=req.body;
-    if(id!==tokenUserId){
-        return res.status(401).json({message:"not authorized!!"})
+export const updateUser = async (req, res, next) => {
+  const id = req.params.id;
+  const tokenUserId = req.userId;  // Make sure req.userId is set via your verifyToken middleware
+  const { password, avatar, ...inputs } = req.body;
+
+  // Check if the user is authorized to update this profile
+  if (id.toString() !== tokenUserId.toString()) {
+    return res.status(401).json({ message: "Not authorized!" });
+  }
+
+  let updatePassword = null;
+
+  try {
+    // Hash new password if provided
+    if (password) {
+      updatePassword = await bcrypt.hash(password, 10);
     }
-    
-let updatePassword=null
 
-try{
+    // Perform the update operation with conditional data updates
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: {
+        ...inputs,
+        ...(updatePassword && { password: updatePassword }), // Update password only if provided
+        ...(avatar && { avatar }) // Update avatar only if provided
+      }
+    });
 
-    if(password){
-        updatePassword=await bcrypt.hash(password,10)
-    }
-    const updateUser=await prisma.user.update({ where: 
-        { id},
-        data: {
-            ...inputs,
-            ...(updatePassword && {password:updatePassword}),
-            ...(avatar && {avatar})
+    // Return the updated user data
+    res.status(200).json(updatedUser);
 
-        }})
-        res.status(200).json(updateUser);
-   
-
-}catch(err){
-   
-}    
-}
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update the user." });
+  }
+};
 
 export const deleteUser=async(req,res,next)=>{
     try{
