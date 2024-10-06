@@ -30,7 +30,7 @@ export const register = async (req, res, next) => {
       sameSite: "None", // Allow cross-site cookies
     });
 
-    res.status(201).json({ user: newUser, accessToken });
+    res.status(201).json({  newUser, accessToken });
   } catch (err) {
     next(err);
   }
@@ -44,22 +44,25 @@ export const login = async (req, res, next) => {
       where: { email },
     });
 
-    if (!user) return next(createError(404, "User not found!"));
+    if (!user) return res.status(404).json({ message: "user not found!" });
+
 
     const hashedPassword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
     if (originalPassword !== password) {
-      return next(createError(400, "Wrong password!"));
+      return res.status(400).json({ message: "Invalid Credentials!" });
     }
 
     const accessToken = Jwt.sign(
-      { id: user.id, isAdmin: user.isAdmin }, // Assuming you have an isAdmin field
+      { id: user.id,        
+      isAdmin: false    
+      }, 
       process.env.JWT_SECRET_KEY,
       { expiresIn: "3d" }
     );
 
-    const { password: _, ...others } = user; // Exclude password
+    const { password, ...others } = user; 
 
     res
       .cookie("accesstoken", accessToken, {
