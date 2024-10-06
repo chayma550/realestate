@@ -35,6 +35,7 @@ const handleSubmit=async(e)=>{
     }
 
 }
+console.log(currentUser.accessToken)
 
   return (
     <div className="update">
