@@ -31,7 +31,7 @@ const handleSubmit=async(e)=>{
       navigate("/profile")
     }catch(err){
         console.log(err)
-        setError(err.response.data.message)
+        setError(err.response?.data?.message || "An error occurred"); // Improve error handling
     }
 
 }
