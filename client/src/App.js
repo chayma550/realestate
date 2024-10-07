@@ -11,6 +11,7 @@ import UpdateProfile from "./UpdateProfile/UpdateProfile";
 import { listPageLoader,  profileLoader,  SinglePageLoader } from "./components/lib/loaders";
 import { LoadingProvider } from "./Context/LoadingContext";
 import Loading from "./components/Loading/Loading";
+import { useEffect, useState } from "react";
 function App() {
   const [loading, setLoading] = useState(true);
 

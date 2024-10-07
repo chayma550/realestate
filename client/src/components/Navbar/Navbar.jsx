@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./navbar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faPhone, faRightToBracket, faUserPlus, faUserTie } from '@fortawesome/free-solid-svg-icons';
