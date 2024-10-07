@@ -19,23 +19,23 @@ export const register = async (req, res) => {
     });
 
     // GENERATE ACCESS TOKEN
+    const savedUser = await newUser.save();
     const accessToken = jwt.sign(
-      { id: newUser.id, isAdmin: false },
+      { id: savedUser._id , isAdmin: false },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: '15m' } // Set token expiry time
+      { expiresIn: '3d' } // Set token expiry time
     );
 
-    const { password: userPassword, ...userInfo } = newUser;
 
     // Set the token in a cookie (optional)
     res.cookie("accessToken", accessToken, {
       httpOnly: true, // Prevents JavaScript access
       secure: true, // Set to true if using HTTPS
-      maxAge: 15 * 60 * 1000, // 15 minutes
+      sameSite: "None", // Allow cross-site cookies
     });
 
     // Return the access token along with user info
-    res.status(201).json({ accessToken, user: userInfo });
+    res.status(201).json({ accessToken, savedUser });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to create user!" });
@@ -63,20 +63,20 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       { id: user.id, isAdmin: false },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: '15m' } // Set token expiry time
+      { expiresIn: '3d' } // Set token expiry time
     );
 
-    const { password: userPassword, ...userInfo } = user;
+    const { password: userPassword, ...others } = user;
 
     // Set the token in a cookie (optional)
     res.cookie("accessToken", accessToken, {
       httpOnly: true, // Prevents JavaScript access
       secure: true, // Set to true if using HTTPS
-      maxAge: 15 * 60 * 1000, // 15 minutes
+      sameSite: "None", // Allow cross-site cookies
     });
 
     // Return the access token along with user info
-    res.status(200).json({ accessToken, user: userInfo });
+    res.status(200).json({ ...others,accessToken });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to login!" });
