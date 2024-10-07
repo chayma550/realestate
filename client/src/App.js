@@ -12,17 +12,17 @@ import { listPageLoader,  profileLoader,  SinglePageLoader } from "./components/
 import { LoadingProvider } from "./Context/LoadingContext";
 import Loading from "./components/Loading/Loading";
 import { useEffect, useState } from "react";
-function App() {
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false); // Hide loading after 3 seconds
-    }, 3000); // Adjust the duration as needed
+const Layout = () => {
+  return (
+    <div className="layout">
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
 
-    return () => clearTimeout(timer); // Cleanup timer on unmount
-  }, []);
-  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -73,7 +73,16 @@ function App() {
       ],
     },
   ]);
-
+  function App() {
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(false); // Hide loading after 3 seconds
+      }, 3000); // Adjust the duration as needed
+  
+      return () => clearTimeout(timer); // Cleanup timer on unmount
+    }, []);
   return (
 <div>
           <LoadingProvider>
