@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import './login.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle} from '@fortawesome/free-brands-svg-icons';
+import {  faGoogle} from '@fortawesome/free-brands-svg-icons';
 import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider, facebookProvider } from '../../firebase';
+import { auth, googleProvider } from '../../firebase';
 import { AuthContext } from '../../Context/AuthContext';
 import apiRequest from '../../components/lib/apiRequest';
 
@@ -82,8 +82,8 @@ const Login = () => {
             <div className="buttons">
               
               <div className="media">
-                <button  className="social-btn">
-              <FontAwesomeIcon icon={faGoogle} className='icon' onClick={handleGoogleLogin} />Google
+                <button  className="social-btn" onClick={handleGoogleLogin}>
+              <FontAwesomeIcon icon={faGoogle} className='icon'  />Google
                 </button>
               </div>
               

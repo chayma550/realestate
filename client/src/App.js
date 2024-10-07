@@ -79,9 +79,9 @@ const Layout = () => {
     useEffect(() => {
       const timer = setTimeout(() => {
         setLoading(false); // Hide loading after 3 seconds
-      }, 3000); // Adjust the duration as needed
+      }, 3000); 
   
-      return () => clearTimeout(timer); // Cleanup timer on unmount
+      return () => clearTimeout(timer); 
     }, []);
   return (
 <div>
