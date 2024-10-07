@@ -4,7 +4,11 @@ import apiRequest from "./apiRequest";
 export const useNotificationStore = create((set) => ({
   number: 0,
   fetch: async () => {
-    const res = await apiRequest("/users/notification");
+    const res = await apiRequest("/users/notification",{
+      headers: {
+        Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+    }
+     });
     set({ number: res.data });
   },
   decrease: () => {

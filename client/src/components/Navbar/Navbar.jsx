@@ -11,10 +11,14 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { currentUser } = useContext(AuthContext);
 
-  const fetch = useNotificationStore((state) => state.fetch);
+  const fetchNotifications = useNotificationStore((state) => state.fetch);
   const number = useNotificationStore((state) => state.number);
 
-  if (currentUser) fetch();
+  useEffect(() => {
+    if (currentUser) {
+      fetchNotifications();
+    }
+  }, [currentUser, fetchNotifications]); // Fetch notifications only when currentUser changes
 
   return (
     <div className='navbar'>
