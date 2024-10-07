@@ -22,25 +22,26 @@ export const register = async (req, res) => {
     const accessToken = jwt.sign(
       { id: newUser.id, isAdmin: false },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: '3d' } // Set token expiry time
+      { expiresIn: '15m' } // Set token expiry time
     );
 
     const { password: userPassword, ...userInfo } = newUser;
 
-    // Optionally, you can set the token in a cookie
+    // Set the token in a cookie (optional)
     res.cookie("accessToken", accessToken, {
       httpOnly: true, // Prevents JavaScript access
       secure: true, // Set to true if using HTTPS
-      sameSite: "None", // Allow cross-site cookies
+      maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
-    // Return the access token and user info
+    // Return the access token along with user info
     res.status(201).json({ accessToken, user: userInfo });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to create user!" });
   }
 };
+
 
 
 export const login = async (req, res) => {
@@ -62,25 +63,26 @@ export const login = async (req, res) => {
     const accessToken = jwt.sign(
       { id: user.id, isAdmin: false },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: '3d' } // Set token expiry time
+      { expiresIn: '15m' } // Set token expiry time
     );
 
     const { password: userPassword, ...userInfo } = user;
 
-    // Optionally, you can set the token in a cookie
+    // Set the token in a cookie (optional)
     res.cookie("accessToken", accessToken, {
       httpOnly: true, // Prevents JavaScript access
       secure: true, // Set to true if using HTTPS
-      sameSite: "None", // Allow cross-site cookies
+      maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
-    // Return the access token and user info
+    // Return the access token along with user info
     res.status(200).json({ accessToken, user: userInfo });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to login!" });
   }
 };
+
 
 
 export const logout = (req, res) => {
