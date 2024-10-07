@@ -15,7 +15,11 @@ const Card = ({item}) => {
   setSaved((prev)=>!prev)
 
   try{
-    await apiRequest.post("/users/save",{postId:post.id})
+    await apiRequest.post("/users/save",{postId:post.id},{
+      headers: {
+        Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+    }
+     })
 
   }catch(err){
     console.log(err)

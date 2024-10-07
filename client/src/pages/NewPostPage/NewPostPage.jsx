@@ -46,7 +46,11 @@ try{
 
 
 
-  })
+  },{
+    headers: {
+      Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+  }
+   })
 navigate("/"+res.data.id)
 }catch(err){
   console.log(err)

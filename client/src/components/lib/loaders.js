@@ -1,31 +1,38 @@
 import { defer } from "react-router";
 import apiRequest from "./apiRequest";
 
+const getAuthHeaders = () => {
+  const accessToken = JSON.parse(localStorage.getItem("user"))?.accessToken;
+  return {
+    Authorization: `Bearer ${accessToken}`,
+  };
+};
 
-export const SinglePageLoader = async ({ request, params }) => {
-  const res = await apiRequest("/posts/" + params.id);
+export const SinglePageLoader = async ({ params }) => {
+  const headers = getAuthHeaders();
+  const res = await apiRequest(`/posts/${params.id}`, { headers });
 
   return res.data;
 };
 
-
-export const listPageLoader = async ({ request, params }) => {
+export const listPageLoader = async ({ request }) => {
   const query = request.url.split("?")[1];
-  const postPromise=  apiRequest("/posts?" + query);
+  const headers = getAuthHeaders();
+  
+  const postPromise = apiRequest(`/posts?${query}`, { headers });
   return defer({
-    postResponse:postPromise
-
-  })
-
+    postResponse: postPromise,
+  });
 };
 
 export const profileLoader = async () => {
-  const postPromise=  apiRequest("/users/profilePosts" );
-  const chatPromise = apiRequest("/chats");
+  const headers = getAuthHeaders();
+  
+  const postPromise = apiRequest("/users/profilePosts", { headers });
+  const chatPromise = apiRequest("/chats", { headers });
 
   return defer({
-    postResponse:postPromise,
+    postResponse: postPromise,
     chatResponse: chatPromise,
-  })
-
+  });
 };
