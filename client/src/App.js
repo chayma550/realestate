@@ -13,15 +13,7 @@ import { LoadingProvider } from "./Context/LoadingContext";
 import Loading from "./components/Loading/Loading";
 import { useEffect, useState } from "react";
 
-const Layout = () => {
-  return (
-    <div className="layout">
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </div>
-  );
-};
+
 
   const router = createBrowserRouter([
     {
