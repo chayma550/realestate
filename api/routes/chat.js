@@ -1,10 +1,11 @@
 import express from "express";
 import { addChat, getChat, getChats, readChat } from "../controllers/chat.js";
+import { verifyToken } from "../utils/VerifyToken.js";
 const router=express.Router()
-router.get("/",getChats)
-router.get("/:id",getChat)
-router.post("/",addChat)
-router.put("/read/:id",readChat)
+router.get("/",verifyToken,getChats)
+router.get("/:id",verifyToken,getChat)
+router.post("/",verifyToken,addChat)
+router.put("/read/:id",verifyToken,readChat)
 
 
 
