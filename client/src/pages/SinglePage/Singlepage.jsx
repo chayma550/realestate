@@ -22,7 +22,12 @@ const Singlepage = () => {
     navigate("/login")
   }
   try{
-    await apiRequest.post("/users/save",{postId:post.id},)
+    await apiRequest.post("/users/save",{postId:post.id},{
+      headers:{
+        token:
+        "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+      }
+     })
 
   }catch(err){
     console.log(err)

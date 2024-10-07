@@ -23,7 +23,12 @@ const handleSubmit=async(e)=>{
             email,
             password,
             avatar:avatar[0]
-        },);
+        },{
+          headers:{
+            token:
+            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
+          }
+         });
       updateUser(res.data)
       navigate("/profile")
     }catch(err){
