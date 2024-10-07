@@ -24,10 +24,9 @@ const handleSubmit=async(e)=>{
             password,
             avatar:avatar[0]
         },{
-          headers:{
-            token:
-            "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
-          }
+          headers: {
+            Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        }
          });
       updateUser(res.data)
       navigate("/profile")
@@ -37,7 +36,6 @@ const handleSubmit=async(e)=>{
     }
 
 }
-console.log(currentUser.accessToken)
 
   return (
     <div className="update">

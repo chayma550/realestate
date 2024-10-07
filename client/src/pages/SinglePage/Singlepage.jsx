@@ -23,10 +23,9 @@ const Singlepage = () => {
   }
   try{
     await apiRequest.post("/users/save",{postId:post.id},{
-      headers:{
-        token:
-        "Bearer "+JSON.parse(localStorage.getItem("user")).accessToken,
-      }
+      headers: {
+        Authorization: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+    }
      })
 
   }catch(err){
